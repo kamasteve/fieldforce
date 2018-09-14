@@ -9,11 +9,12 @@ $pageid=75;
 <div class="ch-container">
 <div class="row">
  <?php include('left_sidebar.php');  ?>
-
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.js"></script>
  <div id="content" class="col-lg-10 col-sm-10">
  <div class="row">
     <div class="box col-md-12">
 <div class="box-inner">
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7rXrZa1QSjM1Zoxj23siZc-GRG2glvvA&signed_in=true&callback=initMap"></script>
 <script type="text/javascript">
 $(document).ready(function(){
     $('#property').on('change',function(){
@@ -116,7 +117,6 @@ $(document).ready(function(e){
 	?>
 
 
-	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3&amp;sensor=false"></script>		
 
 <form enctype="multipart/form-data" id="fupForm" >
   <div class="form-group" >
@@ -143,12 +143,46 @@ function showPosition(position) {
 	//var lat = position.coords.latitude;
    // var lon = position.coords.longitude;
 	//var $("#lat").val(obj.lat);
-	document.getElementById('lat').value = position.coords.latitude;
-	document.getElementById('lon').value = position.coords.longitude;
+	$.get( "http://maps.googleapis.com/maps/api/geocode/json?latlng="+ position.coords.latitude + "," + position.coords.longitude +"&sensor=false", function(data) {
+                        console.log(data);
+						address  = data.results[1].formatted_address;
+						city=data.results[1].address_components[3].long_name;
+						var myadress = address;
+						var mycity = city;
+						document.getElementById("mytext").value = myadress;
+						document.getElementById("city").value = mycity;
+//document.getElementById("address").value=data.results[1].formatted_address;
+//alert(city);	 
+                      })
+	
+     document.getElementById("lon").value = position.coords.longitude;
+     document.getElementById("lat").value = position.coords.latitude;
+	
+
 }
+_getCityState = function(resp){
+	var res = '';
+      	if (resp.status == 'OK') {
+		if (resp.results[1]) {
+			var city=false,state=false;
+			for (var i = 0; i < resp.results.length; i++) {
+				if ((!city || !state) && resp.results[i].types[0] === "locality") {
+					city = resp.results[i].address_components[0].short_name,
+					state = resp.results[i].address_components[2].short_name;
+					res = city + ", " + state;
+				}
+			}
+		}
+	}
+};
 
 </script>
 
+
+
+
+
+<div id="map"></div>
 
 <div class="form-group col-md-6">
 <label class="control-label col-xs-4" for="text">latitude:</label>
@@ -164,6 +198,14 @@ function showPosition(position) {
   <span class="help-block" id="error"></span> 
 </div>
 </div>
+<div class="form-group col-md-6">
+<label class="control-label col-xs-4" for="text">Full Names:</label>
+ <div class="input-group  col-xs-8" id="invoice_due_text">
+  <input class="form-control" name="names" type="text" placeholder="Full Names" value="" id='names' >
+  <span class="help-block" id="error"></span> 
+</div>
+</div>
+
 <div class="form-group col-md-6">
 <label class="control-label col-xs-4" for="text">Contact Number:</label>
  <div class="input-group  col-xs-8" id="invoice_due_text">
@@ -181,14 +223,21 @@ function showPosition(position) {
 <div class="form-group col-md-6">
 <label class="control-label col-xs-4" for="text">Email:</label>
  <div class="input-group  col-xs-8" id="invoice_due_text">
-  <input class="form-control" name="email" type="text" placeholder="EMAIL" value="" id='email' >
+  <input class="form-control" name="email" type="text" placeholder="Email" value="" id='email' >
+  <span class="help-block" id="error"></span> 
+</div>
+</div>
+<div class="form-group col-md-6">
+<label class="control-label col-xs-4" for="text">City:</label>
+ <div class="input-group  col-xs-8" id="invoice_due_text">
+  <input class="form-control" name="city" type="text" placeholder="City" value="" id='city' readonly >
   <span class="help-block" id="error"></span> 
 </div>
 </div>
 <div class="form-group col-md-6">
 <label class="control-label col-xs-4" for="text">Address :</label>
  <div class="input-group  col-xs-8" id="invoice_due_text">
-  <input class="form-control" name="Address" type="text" placeholder=" Address" value="" id='Address' >
+  <input class="form-control" name="mytext" type="text" placeholder=" mytext" value=" " id='mytext' readonly >
   <span class="help-block" id="error"></span> 
 </div>
 </div>
@@ -218,7 +267,7 @@ function showPosition(position) {
   <span class="help-block" id="error"></span> 
 </div>
 </div>
-<input type="hidden" name="ADDEB_BY" value="<?php echo $_SESSION['USERNAME']; ?> "/>
+<input type="hidden" name="ADDEB_BY" value="<?php echo "Snkamau" ?> "/>
 <div class="form-group col-md-6">
 <div class="control-label col-xs-4" for="text"></div>
  <div class="input-group  col-xs-8" id="invoice_due_text">

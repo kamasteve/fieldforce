@@ -7,7 +7,7 @@ ob_start();
 session_start();
 //session_start();
 
-if (!isset($_SESSION['user_session'])) {
+if (isset($_SESSION['user_session'])) {
 header("location:index.php");
 
 }
@@ -77,7 +77,7 @@ if(isset($_POST['logout']))
             <!-- user dropdown starts -->
             <div class="btn-group pull-right">
                 <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    <i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"> <?php echo $_SESSION['user_session'] ?></span>
+                    <i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"> <?php echo "Admin"; ?></span>
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">

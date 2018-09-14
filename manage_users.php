@@ -48,13 +48,16 @@ $(document).ready(function() {
 </script>
 <thead>
 <tr>
+
 <th>ID</th>
+<th>Names</th>
 <th>Mobile</th>
 <th>Email</th>
 <th>IDCARD</th>
 <th>Region</th>
 <th>Latitude</th>
 <th>Longitude</th>
+<th>City</th>
 <th>Address</th>
 <th>Date Added</th>
 <th>ADDEB_BY</th>
@@ -70,12 +73,14 @@ $(document).ready(function() {
 			
 				  
 				    <td><?php echo $row["ID"];?></td>
+					<td><?php echo $row["name"];?></td>
 					<td> <?php echo $row['mobile']; ?></td>
 					<td> <?php echo $row['email']; ?> </td>
 				    <td><?php echo $row["IDCARD"];?></td>
 					<td><?php echo $row["region"];?></td>
 					<td><?php echo $row["Latitude"];?></td>
 					<td><?php echo $row["longitude"];?></td>
+					<td><?php echo $row["city"];?></td>
 					<td><?php echo $row["Address"];?></td>
 					<td><?php echo $row["capture_date"];?></td>
 					<td><?php echo $row["ADDEB_BY"];?></td>

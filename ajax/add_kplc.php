@@ -5,10 +5,12 @@ include_once('config.php');
 	$mobile = $_REQUEST['mobile'];
 	$secondary_contact = $_REQUEST['secondary_contact'];
 	$email = $_REQUEST['email'];
-	$Address = $_REQUEST['Address'];
+	$Address = $_REQUEST['mytext'];
 	$capture_date = $_REQUEST['capture_date'];
 	$IDCARD = $_REQUEST['IDCARD'];
 	$region = $_REQUEST['region'];
+	$name = $_REQUEST['names'];
+	$city = $_REQUEST['city'];
 	//$photo = $_REQUEST['input-b3[]'];
 	//$image = $_FILES['image']['name'];
 	//$file_basename = substr($image, 0, strripos($image, '.')); // get file extention
@@ -18,7 +20,7 @@ include_once('config.php');
 	
 
 
-$add_unit ="INSERT into Field_force_users(Latitude,longitude,mobile,secondary_contact,email,Address,capture_date,region,IDCARD,ADDEB_BY) VALUES('$Latitude','$longitude','$mobile','$secondary_contact','$email','$Address','$capture_date','$region','$IDCARD','$ADDEB_BY')";
+$add_unit ="INSERT into Field_force_users(Latitude,longitude,mobile,secondary_contact,email,Address,capture_date,region,IDCARD,ADDEB_BY,name,city) VALUES('$Latitude','$longitude','$mobile','$secondary_contact','$email','$Address','$capture_date','$region','$IDCARD','$ADDEB_BY','$name','$city')";
  $result_addunits = mysqli_query($mysqli, $add_unit);
 
             if (!$result_addunits) {
